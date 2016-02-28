@@ -67,7 +67,7 @@ void adspImage::calculateSMQT(vector<double> v, double prevMean)
     }
     for (int& x : highpos)
     {
-      outputValues.at(x) = addBit(outputValues.at(x), false);
+      outputValues.at(x) = addBit(outputValues.at(x), true);
       highValues.emplace_back(v.at(x));
     }
     if (mean == prevMean)
