@@ -3,7 +3,7 @@
 Image::Image(string fn)
 {
   // Loading of image
-  mmImg = imread(fn, CV_LOAD_IMAGE_UNCHANGED);
+  mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
 
   if (mmImg.empty())
   {

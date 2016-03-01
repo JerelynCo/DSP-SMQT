@@ -9,15 +9,16 @@ using namespace std;
 class adspImage
 {
   private:
+    int recursion_count = 0;
     vector<double> pixelValues;
-    vector<int> outputValues;
+    vector<long unsigned int> outputValues;
     double calculateMean(vector<double> v);
-    int addBit(int x, bool shiftByOne);
+    int addBit(long unsigned int x, bool shiftByOne);
     
   public:
     adspImage(vector<double> pixelVals);
     ~adspImage();
-    void calculateSMQT(vector<double> v, double prevMean);
+    void calculateSMQT(vector<unsigned int> v, int L=8);
     vector<double> getPixelValues();
     void outputCSV();
 };
