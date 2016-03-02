@@ -81,7 +81,7 @@ void Image::outputFilePixelValues(string outputFn){
 
 void Image::showImage(string windowName)
 {
-  namedWindow(windowName, CV_WINDOW_AUTOSIZE);
+  //namedWindow(windowName, CV_WINDOW_AUTOSIZE);
   imshow(windowName, mmImg);
   waitKey(0);
 }
