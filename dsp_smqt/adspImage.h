@@ -10,9 +10,9 @@ class adspImage
 {
   private:
     vector<double> pixelValues;
-    vector<long unsigned int> outputValues;
+    vector<unsigned int> outputValues;
     double calculateMean(vector<double> v);
-    int addBit(long unsigned int x, bool shiftByOne);
+    int addBit(unsigned int x, bool shiftByOne);
     
   public:
     adspImage(vector<double> pixelVals);
@@ -21,5 +21,6 @@ class adspImage
     void calculateSMQT(vector<unsigned int> v, int L=8);
     vector<double> getPixelValues();
     void outputCSV();
+    vector<double>getOutputValues();
 };
 

@@ -13,7 +13,7 @@ int main() {
   Image origImage("toptal.png");
   origImage.outputFilePixelValues(blueFn); // Output file for blue vector
 
-  origImage.showImage("Orig");
+  //origImage.showImage("Orig");
   cout << "Create adspImage Object.." << endl;
 
   adspImage blue(origImage.getBlueVector());
@@ -23,11 +23,10 @@ int main() {
   iota(begin(bluePixelPositions), end(bluePixelPositions), 0);
 
   blue.calculateSMQT(bluePixelPositions, 8);
-  cout << "Calculation Done!! CSV File created." << endl;
 
-  blue.outputCSV();
-  cin.get();
-  //origImage.writeToFile();
+  imshow("Orig", origImage.getImage());
+  waitKey(0);
+  return 0;
 }
 
 
