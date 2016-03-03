@@ -10,7 +10,7 @@ int main() {
   //greenFn = "green.csv";
   //redFn = "red.csv";
 
-  Image origImage("/home/jerelynco/ClionProjects/DSP-SMQT/dsp_smqt/toptal.png");
+  Image origImage("toptal.png");
   origImage.outputFilePixelValues(blueFn); // Output file for blue vector
 
   origImage.showImage("Orig");
