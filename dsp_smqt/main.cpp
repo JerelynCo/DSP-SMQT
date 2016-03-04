@@ -43,7 +43,6 @@ int main() {
 	  //put code to output the picture
 	  
 	  
-	  	  
 	  vector<double> blueVal = blue.getOutputValues();
 	  vector<double> greenVal = green.getOutputValues();
 	  vector<double> redVal = red.getOutputValues();
