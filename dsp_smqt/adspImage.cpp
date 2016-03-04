@@ -81,3 +81,9 @@ void adspImage::outputCSV()
   }
   file.close();
 }
+
+vector<double> adspImage::getOutputValues()
+{
+  vector<double> out(outputValues.begin(), outputValues.end());
+  return out;
+}

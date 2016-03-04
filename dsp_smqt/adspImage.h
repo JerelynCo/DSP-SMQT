@@ -21,5 +21,6 @@ class adspImage
     void calculateSMQT(vector<unsigned int> v, int L=8);
     vector<double> getPixelValues();
     void outputCSV();
+    vector<double> getOutputValues();
 };
 
