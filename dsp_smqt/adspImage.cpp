@@ -79,11 +79,13 @@ void adspImage::outputCSV()
   {
     file << outputValues.at(i) << endl;
   }
+  cout << outputValues.size();
   file.close();
 }
 
 vector<double> adspImage::getOutputValues()
 {
+  //make 2d vector
   vector<double> out(outputValues.begin(), outputValues.end());
   return out;
 }

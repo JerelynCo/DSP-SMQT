@@ -18,6 +18,8 @@ private:
   // Pixel variables
   vector <double> mvBlue, mvGreen, mvRed;
 public:
+	int rowSize = 0;
+	int colSize = 0;
   Image(string fn);
   Mat getImage();
 

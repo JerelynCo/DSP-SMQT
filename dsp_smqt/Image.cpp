@@ -4,7 +4,8 @@ Image::Image(string fn)
 {
   // Loading of image
   mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
-
+  rowSize = mmImg.rows;
+  colSize = mmImg.cols;
   if (mmImg.empty())
   {
     cout << "Image not loaded. Make sure correct filename and/or directory entered." << endl;
