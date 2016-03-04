@@ -3,16 +3,17 @@
 #include <numeric>
 #include <iostream>
 #include <fstream>
-
 using namespace std;
 
 class adspImage
 {
   private:
+	
     vector<double> pixelValues;
     vector<unsigned int> outputValues;
     double calculateMean(vector<double> v);
     int addBit(unsigned int x, bool shiftByOne);
+	
     
   public:
     adspImage(vector<double> pixelVals);
@@ -22,5 +23,6 @@ class adspImage
     vector<double> getPixelValues();
     void outputCSV();
     vector<double>getOutputValues();
+	
 };
 

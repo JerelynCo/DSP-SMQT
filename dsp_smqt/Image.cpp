@@ -6,6 +6,7 @@ Image::Image(string fn)
   mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
   rowSize = mmImg.rows;
   colSize = mmImg.cols;
+  cv::Mat twoDblue(mmImg.rows, mmImg.cols, CV_64F);
   if (mmImg.empty())
   {
     cout << "Image not loaded. Make sure correct filename and/or directory entered." << endl;
@@ -45,6 +46,23 @@ vector<double> Image::getGreenVector()
 vector<double> Image::getRedVector()
 {
   return mvRed;
+}
+
+Mat Image::get2Dmat(String filename, vector<double> oneD){
+	int counter = 0;
+	Mat image = imread(filename, CV_LOAD_IMAGE_COLOR);
+	cv::Mat twoD(image.rows, image.cols, CV_64F);
+
+	for (int i = 0; i < image.rows; i++)
+	{
+		for (int j = 0; j < image.cols; j++)
+		{
+			twoD.at<double>(i, j) = oneD[counter];
+			counter++;
+		}
+
+	}
+	return twoD;
 }
 
 void Image::outputFilePixelValues(string outputFn){

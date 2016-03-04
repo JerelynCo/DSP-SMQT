@@ -14,18 +14,20 @@ class Image
 {
 private:
   Mat mmImg;
-
+  
   // Pixel variables
   vector <double> mvBlue, mvGreen, mvRed;
 public:
-	int rowSize = 0;
-	int colSize = 0;
+  int rowSize = 0;
+  int colSize = 0;
+   
   Image(string fn);
   Mat getImage();
-
+  
   vector<double> getBlueVector(), getGreenVector(), getRedVector(); // For pixel-level operation
   void outputFilePixelValues(string outputFn);
 
   void showImage(string windowName);
   void writeToFile();
+  Mat get2Dmat(String filename, vector<double> oneD);
 };

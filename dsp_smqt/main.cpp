@@ -5,14 +5,18 @@
 using namespace std;
 
 int main() {
-	  //vector<Mat> RGB(3);
+	String filename = "toptal.png";
+	  Image origImage(filename);
+	  vector<Mat> BGR;
+	  Mat finImage(origImage.rowSize, origImage.colSize, CV_64FC1);
 	  string blueFn, greenFn, redFn;
 	  blueFn = "blue.csv";
 	  //greenFn = "green.csv";
 	  //redFn = "red.csv";
 
-	  Image origImage("toptal.png");
-	  origImage.outputFilePixelValues(blueFn); // Output file for blue vector
+	  
+	  imshow("Orig", origImage.getImage());
+	  //origImage.outputFilePixelValues(blueFn); // Output file for blue vector
 
 	  //origImage.showImage("Orig");
 	  cout << "Create adspImage Object.." << endl;
@@ -37,31 +41,22 @@ int main() {
 	  green.calculateSMQT(greenPixelPositions, 8);
 	  blue.calculateSMQT(bluePixelPositions, 8);
 	  //put code to output the picture
-	  //imwrite(/**filename**/,); to output an image
-	  /*
-		put 3 channels
-		cv::Mat m = cv::Mat::ones(4, 3, CV_64F);    // 3 cols, 4 rows
-		cv::Mat row = cv::Mat::ones(1, 3, CV_64F);  // 3 cols
-		m.push_back(row);         
-	  */
 	  
-	  /*cv::Mat RGB = cv::Mat::ones(3, origImage.colSize, CV_8UC1);    // dimension of matirx based on image dimension
-	  cv::Mat red = cv::Mat::ones(1, origImage.colSize, CV_64F);  // 
-
-	  RGB.push_back(red.getOutputValues());
-	  RGB.push_back(green.getOutputValues());
-	  RGB.push_back(blue.getOutputValues());*/
-	  vector<Mat> BGR;
-	  Mat finImage(origImage.rowSize, origImage.colSize, CV_64FC1);
+	  
 	  	  
 	  vector<double> blueVal = blue.getOutputValues();
 	  vector<double> greenVal = green.getOutputValues();
 	  vector<double> redVal = red.getOutputValues();
+
+	  BGR.push_back(origImage.get2Dmat(filename,blueVal));
+	  BGR.push_back(origImage.get2Dmat(filename, greenVal));
+	  BGR.push_back(origImage.get2Dmat(filename, redVal));
 	  
-	  cv::Mat twoDblue(origImage.rowSize, origImage.colSize, CV_64F);
+	  /*cv::Mat twoDblue(origImage.rowSize, origImage.colSize, CV_64F);
 	  cv::Mat twoDgreen(origImage.rowSize, origImage.colSize, CV_64F);
 	  cv::Mat twoDred(origImage.rowSize, origImage.colSize, CV_64F);
 	  
+	 
 	  int counter = 0;
 	  for (int i = 0; i < origImage.rowSize; i++)
 	  {
@@ -73,24 +68,13 @@ int main() {
 			  counter++;
 		  }
 		  
-	  }
-	  BGR.push_back(twoDblue);
-	  BGR.push_back(twoDgreen);
-	  BGR.push_back(twoDred);
+	  }*/
+	  
 
 	  merge(BGR, finImage);
 	  imshow("new", finImage);
 
-	  /*
-	  Mat C;
-	  for (int i = 0; i < 198442; i++){
-		  C = (Mat_<double>(1,origImage.rowSize*origImage.colSize) << blueVal.at(i));
-	  }
 	  
-	  cout << "C = " << endl << " " << C << endl << endl;*/
-
-
-	  imshow("Orig", origImage.getImage());
 	  waitKey(0);
 	  return 0;
 }
@@ -99,9 +83,6 @@ int main() {
 //load double to Mat
 Mat C = (Mat_<double>(3,3) << 0, -1, 0, -1, 5, -1, 0, -1, 0);
 cout << "C = " << endl << " " << C << endl << endl;
-
-
-
 
 vector<Mat> rgbChannels(3);
 split(src, rgbChannels);
@@ -143,4 +124,16 @@ my_mat.at<double>(i,j) = vector_of_rows[i][j];
 
 std::cout << my_mat << std::endl;
 
-*/
+/*int j = 0;
+for (int i = 0; i <blueVal.size(); i++)
+{
+if ((i%origImage.colSize == 0) && (i != 0))
+{
+j++;
+}
+twoDblue.at<double>(j, i-origImage.colSize*j) = blueVal[i];
+twoDgreen.at<double>(j, i - origImage.colSize*j) = redVal[i];
+twoDred.at<double>(j, i - origImage.colSize*j) = greenVal[i];
+}*/
+
+
