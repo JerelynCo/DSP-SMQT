@@ -5,7 +5,7 @@ adspImage::adspImage(vector<double> pixelVals)
   pixelValues = pixelVals;
 
   // allocate space and assign zeroes
-  vector<unsigned int> v_int(pixelVals.begin(), pixelVals.end());
+  vector<long unsigned int> v_int(pixelVals.begin(), pixelVals.end());
   outputValues = v_int;
   fill(outputValues.begin(), outputValues.end(), 0);
 }
@@ -21,7 +21,7 @@ double adspImage::calculateMean(vector<double> v)
   return mean;
 }
 
-int adspImage::addBit(unsigned int x, bool shiftByOne)
+int adspImage::addBit(long unsigned int x, bool shiftByOne)
 {
   if (shiftByOne)
   {
@@ -77,13 +77,7 @@ void adspImage::outputCSV()
   file.open("smqt.csv");
   for (int i = 0; i < outputValues.size(); i++)
   {
-    file << outputValues.at(i) << endl;
+    file << outputValues.at(i) << ",";
   }
   file.close();
-}
-
-vector<double> adspImage::getOutputValues()
-{
-  vector<double> out(outputValues.begin(), outputValues.end());
-  return out;
 }
