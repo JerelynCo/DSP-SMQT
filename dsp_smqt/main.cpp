@@ -51,6 +51,7 @@ int main() {
 	  RGB.push_back(red.getOutputValues());
 	  RGB.push_back(green.getOutputValues());
 	  RGB.push_back(blue.getOutputValues());*/
+	  vector<Mat> BGR;
 	  Mat finImage(origImage.rowSize, origImage.colSize, CV_64FC1);
 	  	  
 	  vector<double> blueVal = blue.getOutputValues();
@@ -73,8 +74,12 @@ int main() {
 		  }
 		  
 	  }
+	  BGR.push_back(twoDblue);
+	  BGR.push_back(twoDgreen);
+	  BGR.push_back(twoDred);
 
-
+	  merge(BGR, finImage);
+	  imshow("new", finImage);
 
 	  /*
 	  Mat C;
