@@ -1,28 +1,24 @@
 #include <iostream>
+#include <string>
 #include "Image.h"
 #include "adspImage.h"
 
 using namespace std;
 
 int main() {
-	  String filename = "toptal.png";
+	  int L = 0;
+	  string filename = "toptal.png";
 	  vector<Mat> BGR;
-	  string blueFn, greenFn, redFn;
-	  blueFn = "blue.csv";
-	  //greenFn = "green.csv";
-	  //redFn = "red.csv";
-
-	  Image origImage(filename);
-	  imshow("Orig", origImage.getImage());
-	  Mat finImage(origImage.rowSize, origImage.colSize, CV_8UC1);
 	  
-	  cout << "input filename";
-	  //origImage.outputFilePixelValues(blueFn); // Output file for blue vector
-	  //origImage.showImage("Orig");
+	  cout << "Please input correct filename:";
+	  getline(cin, filename);
+	  Image origImage(filename);
+	  Mat finImage(origImage.rowSize, origImage.colSize, CV_8UC1);
+	  cout << "Please enter the L:";
+	  cin >> L;
+	  
 	  cout << "Create adspImage Object.." << endl;
 	  
-	  //blue is a type
-  
 	  adspImage red(origImage.getBlueVector());
 	  adspImage green(origImage.getGreenVector());
 	  adspImage blue(origImage.getRedVector());
@@ -37,10 +33,9 @@ int main() {
 	  vector<unsigned int> bluePixelPositions(blue.getPixelValues().size());
 	  iota(begin(bluePixelPositions), end(bluePixelPositions), 0);
 
-	  red.calculateSMQT(redPixelPositions, 8);
-	  green.calculateSMQT(greenPixelPositions, 8);
-	  blue.calculateSMQT(bluePixelPositions, 8);
-	  
+	  red.calculateSMQT(redPixelPositions, L);
+	  green.calculateSMQT(greenPixelPositions, L);
+	  blue.calculateSMQT(bluePixelPositions, L);
 	  
 	  vector<double> redVal = red.getOutputValues();
 	  vector<double> blueVal = blue.getOutputValues();
@@ -49,32 +44,11 @@ int main() {
 	  BGR.push_back(origImage.get2Dmat(filename,redVal));
 	  BGR.push_back(origImage.get2Dmat(filename, greenVal));
 	  BGR.push_back(origImage.get2Dmat(filename, blueVal));
-	  
-	 /* cv::Mat twoDblue(origImage.rowSize, origImage.colSize, CV_8UC1);
-	  cv::Mat twoDgreen(origImage.rowSize, origImage.colSize, CV_8UC1);
-	  cv::Mat twoDred(origImage.rowSize, origImage.colSize, CV_8UC1);
-	  
-	 
-	  int counter = 0;
-	  for (int i = 0; i < origImage.rowSize; i++)
-	  {
-		  for (int j = 0; j < origImage.colSize; j++)
-		  {
-			  twoDblue.at<unsigned char>(i, j) = blueVal[counter];
-			  twoDgreen.at<unsigned char>(i, j) = greenVal[counter];
-			  twoDred.at<unsigned char>(i, j) = redVal[counter];
-			  counter++;
-		  }
-		  
-	  }
-	  BGR.push_back(twoDblue);
-	  BGR.push_back(twoDgreen);
-	  BGR.push_back(twoDred);*/
-
+	 	   
+	  imshow("Orig", origImage.getImage());
 	  merge(BGR, finImage);
 	  imshow("new", finImage);
 
-	  
 	  waitKey(0);
 	  return 0;
 }
@@ -136,4 +110,31 @@ twoDgreen.at<double>(j, i - origImage.colSize*j) = redVal[i];
 twoDred.at<double>(j, i - origImage.colSize*j) = greenVal[i];
 }*/
 
+/* cv::Mat twoDblue(origImage.rowSize, origImage.colSize, CV_8UC1);
+cv::Mat twoDgreen(origImage.rowSize, origImage.colSize, CV_8UC1);
+cv::Mat twoDred(origImage.rowSize, origImage.colSize, CV_8UC1);
+
+
+int counter = 0;
+for (int i = 0; i < origImage.rowSize; i++)
+{
+for (int j = 0; j < origImage.colSize; j++)
+{
+twoDblue.at<unsigned char>(i, j) = blueVal[counter];
+twoDgreen.at<unsigned char>(i, j) = greenVal[counter];
+twoDred.at<unsigned char>(i, j) = redVal[counter];
+counter++;
+}
+
+}
+BGR.push_back(twoDblue);
+BGR.push_back(twoDgreen);
+BGR.push_back(twoDred);*/
+//string blueFn, greenFn, redFn;
+//blueFn = "blue.csv";
+//greenFn = "green.csv";
+//redFn = "red.csv";
+
+//origImage.outputFilePixelValues(blueFn); // Output file for blue vector
+//origImage.showImage("Orig");
 
