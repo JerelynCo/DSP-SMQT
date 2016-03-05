@@ -5,22 +5,22 @@
 using namespace std;
 
 int main() {
-	String filename = "toptal.png";
-	  Image origImage(filename);
+	  String filename = "toptal.png";
 	  vector<Mat> BGR;
-	  Mat finImage(origImage.rowSize, origImage.colSize, CV_64FC1);
 	  string blueFn, greenFn, redFn;
 	  blueFn = "blue.csv";
 	  //greenFn = "green.csv";
 	  //redFn = "red.csv";
 
-	  
+	  Image origImage(filename);
 	  imshow("Orig", origImage.getImage());
+	  Mat finImage(origImage.rowSize, origImage.colSize, CV_8UC1);
+	  
+	  cout << "input filename";
 	  //origImage.outputFilePixelValues(blueFn); // Output file for blue vector
-
 	  //origImage.showImage("Orig");
 	  cout << "Create adspImage Object.." << endl;
-
+	  
 	  //blue is a type
   
 	  adspImage red(origImage.getBlueVector());
@@ -40,20 +40,19 @@ int main() {
 	  red.calculateSMQT(redPixelPositions, 8);
 	  green.calculateSMQT(greenPixelPositions, 8);
 	  blue.calculateSMQT(bluePixelPositions, 8);
-	  //put code to output the picture
 	  
 	  
+	  vector<double> redVal = red.getOutputValues();
 	  vector<double> blueVal = blue.getOutputValues();
 	  vector<double> greenVal = green.getOutputValues();
-	  vector<double> redVal = red.getOutputValues();
 
-	  BGR.push_back(origImage.get2Dmat(filename,blueVal));
+	  BGR.push_back(origImage.get2Dmat(filename,redVal));
 	  BGR.push_back(origImage.get2Dmat(filename, greenVal));
-	  BGR.push_back(origImage.get2Dmat(filename, redVal));
+	  BGR.push_back(origImage.get2Dmat(filename, blueVal));
 	  
-	  /*cv::Mat twoDblue(origImage.rowSize, origImage.colSize, CV_64F);
-	  cv::Mat twoDgreen(origImage.rowSize, origImage.colSize, CV_64F);
-	  cv::Mat twoDred(origImage.rowSize, origImage.colSize, CV_64F);
+	 /* cv::Mat twoDblue(origImage.rowSize, origImage.colSize, CV_8UC1);
+	  cv::Mat twoDgreen(origImage.rowSize, origImage.colSize, CV_8UC1);
+	  cv::Mat twoDred(origImage.rowSize, origImage.colSize, CV_8UC1);
 	  
 	 
 	  int counter = 0;
@@ -61,14 +60,16 @@ int main() {
 	  {
 		  for (int j = 0; j < origImage.colSize; j++)
 		  {
-			  twoDblue.at<double>(i, j) = blueVal[counter];
-			  twoDgreen.at<double>(i, j) = redVal[counter];
-			  twoDred.at<double>(i, j) = greenVal[counter];
+			  twoDblue.at<unsigned char>(i, j) = blueVal[counter];
+			  twoDgreen.at<unsigned char>(i, j) = greenVal[counter];
+			  twoDred.at<unsigned char>(i, j) = redVal[counter];
 			  counter++;
 		  }
 		  
-	  }*/
-	  
+	  }
+	  BGR.push_back(twoDblue);
+	  BGR.push_back(twoDgreen);
+	  BGR.push_back(twoDred);*/
 
 	  merge(BGR, finImage);
 	  imshow("new", finImage);
