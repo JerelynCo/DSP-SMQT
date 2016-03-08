@@ -8,6 +8,8 @@ using namespace std;
 int main() {
 	  int L = 0;
 	  string filename = "toptal.png";
+	  string newFile = "new";
+	  string save = "no";
 	  vector<Mat> BGR;
 	  
 	  cout << "Please input correct filename:";
@@ -19,36 +21,40 @@ int main() {
 	  
 	  cout << "Create adspImage Object.." << endl;
 	  
-	  adspImage red(origImage.getBlueVector());
+	  adspImage blue(origImage.getBlueVector());
 	  adspImage green(origImage.getGreenVector());
-	  adspImage blue(origImage.getRedVector());
+	  adspImage red(origImage.getRedVector());
 	  cout << "Calculate SMQT.." << endl;
 
 	  vector<unsigned int> redPixelPositions(red.getPixelValues().size());
 	  iota(begin(redPixelPositions), end(redPixelPositions), 0);
-
 	  vector<unsigned int> greenPixelPositions(green.getPixelValues().size());
 	  iota(begin(greenPixelPositions), end(greenPixelPositions), 0);
-
 	  vector<unsigned int> bluePixelPositions(blue.getPixelValues().size());
 	  iota(begin(bluePixelPositions), end(bluePixelPositions), 0);
 
-	  red.calculateSMQT(redPixelPositions, L);
-	  green.calculateSMQT(greenPixelPositions, L);
 	  blue.calculateSMQT(bluePixelPositions, L);
-	  
-	  vector<double> redVal = red.getOutputValues();
-	  vector<double> blueVal = blue.getOutputValues();
-	  vector<double> greenVal = green.getOutputValues();
+	  green.calculateSMQT(greenPixelPositions, L);
+	  red.calculateSMQT(redPixelPositions, L);
 
-	  BGR.push_back(origImage.get2Dmat(filename,redVal));
+	  vector<double> blueVal = blue.getOutputValues(L);
+	  vector<double> greenVal = green.getOutputValues(L);
+	  vector<double> redVal = red.getOutputValues(L);
+
+	  BGR.push_back(origImage.get2Dmat(filename,blueVal));
 	  BGR.push_back(origImage.get2Dmat(filename, greenVal));
-	  BGR.push_back(origImage.get2Dmat(filename, blueVal));
-	 	   
+	  BGR.push_back(origImage.get2Dmat(filename, redVal));
+	 	  
 	  imshow("Orig", origImage.getImage());
 	  merge(BGR, finImage);
 	  imshow("new", finImage);
-
+	  
+	  /*cout << "new file name:";
+	  cin.get();
+	  getline(cin, newFile);
+	  imwrite(newFile+".png", finImage);*/
+     
+	  imwrite("5.png", finImage);
 	  waitKey(0);
 	  return 0;
 }

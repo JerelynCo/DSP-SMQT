@@ -3,7 +3,6 @@
 adspImage::adspImage(vector<double> pixelVals)
 {
   pixelValues = pixelVals;
-
   // allocate space and assign zeroes
   vector<unsigned int> v_int(pixelVals.begin(), pixelVals.end());
   outputValues = v_int;
@@ -21,9 +20,9 @@ double adspImage::calculateMean(vector<double> v)
   return mean;
 }
 
-int adspImage::addBit(unsigned int x, bool shiftByOne)
+int adspImage::addBit(unsigned int x, bool insertOne)
 {
-  if (shiftByOne)
+	if (insertOne)
   {
     return x << 1 | 1;
   }
@@ -83,10 +82,20 @@ void adspImage::outputCSV()
   file.close();
 }
 
-vector<double> adspImage::getOutputValues()
+vector<double> adspImage::getOutputValues(int L)
 {
   //make 2d vector
+  padBit(L);
   vector<double> out(outputValues.begin(), outputValues.end());
   return out;
 }
-
+//for padding of 
+void adspImage::padBit(int quanL){
+	unsigned int padding,pad = 0;
+	for (int i = 0; i < outputValues.size(); i++){
+		for (int j = 0; j < 8-quanL; j++){
+			//shift bits to the left add 0
+			outputValues.at(i) = addBit(outputValues.at(i),false);
+		}
+	}
+}
