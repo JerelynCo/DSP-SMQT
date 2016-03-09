@@ -12,6 +12,7 @@ int main() {
 	  string filename = "toptal.png";
 	  string newFile = "new";
 	  string save = "no";
+	  vector<adspImage> colorChan;
 	  vector<Mat> BGR;
 	   
 	  do
@@ -39,24 +40,20 @@ int main() {
 	  adspImage red(origImage.getRedVector());
 	  cout << "Calculate SMQT.." << endl;
 
-	  vector<unsigned int> bluePixelPositions(blue.getPixelValues().size());
-	  iota(begin(bluePixelPositions), end(bluePixelPositions), 0);
-	  vector<unsigned int> greenPixelPositions(green.getPixelValues().size());
-	  iota(begin(greenPixelPositions), end(greenPixelPositions), 0);
-	  vector<unsigned int> redPixelPositions(red.getPixelValues().size());
-	  iota(begin(redPixelPositions), end(redPixelPositions), 0);
+	  colorChan.push_back(blue);
+	  colorChan.push_back(green);
+	  colorChan.push_back(red);
+
+	  for (int i = 0; i < colorChan.size(); i++)
+	  {
+		  vector<unsigned int> colorChanPixelPositions(colorChan[i].getPixelValues().size());
+		  iota(begin(colorChanPixelPositions), end(colorChanPixelPositions), 0);
+		  colorChan[i].calculateSMQT(colorChanPixelPositions, L);
+		  vector<double> colorChanVal = colorChan[i].getOutputValues(L);
+		  BGR.push_back(origImage.get2Dmat(filename, colorChanVal));
+	  }
+
 	  
-	  blue.calculateSMQT(bluePixelPositions, L);
-	  green.calculateSMQT(greenPixelPositions, L);
-	  red.calculateSMQT(redPixelPositions, L);
-
-	  vector<double> blueVal = blue.getOutputValues(L);
-	  vector<double> greenVal = green.getOutputValues(L);
-	  vector<double> redVal = red.getOutputValues(L);
-
-	  BGR.push_back(origImage.get2Dmat(filename,blueVal));
-	  BGR.push_back(origImage.get2Dmat(filename, greenVal));
-	  BGR.push_back(origImage.get2Dmat(filename, redVal));
 	 	  
 	  imshow("Orig", origImage.getImage());
 	  merge(BGR, finImage);
@@ -70,6 +67,30 @@ int main() {
 	  waitKey(0);
 	  return 0;
 }
+
+
+//the not for loop form put back if error
+/*vector<unsigned int> bluePixelPositions(blue.getPixelValues().size());
+iota(begin(bluePixelPositions), end(bluePixelPositions), 0);
+vector<unsigned int> greenPixelPositions(green.getPixelValues().size());
+iota(begin(greenPixelPositions), end(greenPixelPositions), 0);
+vector<unsigned int> redPixelPositions(red.getPixelValues().size());
+iota(begin(redPixelPositions), end(redPixelPositions), 0);
+
+blue.calculateSMQT(bluePixelPositions, L);
+green.calculateSMQT(greenPixelPositions, L);
+red.calculateSMQT(redPixelPositions, L);
+
+vector<double> blueVal = blue.getOutputValues(L);
+vector<double> greenVal = green.getOutputValues(L);
+vector<double> redVal = red.getOutputValues(L);
+
+BGR.push_back(origImage.get2Dmat(filename,blueVal));
+BGR.push_back(origImage.get2Dmat(filename, greenVal));
+BGR.push_back(origImage.get2Dmat(filename, redVal));*/
+
+
+
 
 /* Showing Green 
 //load double to Mat
