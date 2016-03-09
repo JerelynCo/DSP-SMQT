@@ -5,20 +5,33 @@
 
 using namespace std;
 
+#define rgtFile filename.substr(filename.length() - 4) 
+
 int main() {
 	  int L = 0;
 	  string filename = "toptal.png";
 	  string newFile = "new";
 	  string save = "no";
 	  vector<Mat> BGR;
-	  
-	  cout << "Please input correct filename:";
-	  getline(cin, filename);
+	   
+	  do
+	  {
+		  cout << "Please input correct filename:";
+		  getline(cin, filename);
+	  } while (rgtFile != ".png"&& rgtFile !=".jpg");
+
 	  Image origImage(filename);
 	  Mat finImage(origImage.rowSize, origImage.colSize, CV_8UC1);
 	  cout << "Please enter the L:";
 	  cin >> L;
-	  
+	  while (cin.fail())
+	  {
+		std::cin.clear();
+		std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Bad entry.  Enter a NUMBER: ";
+		std::cin >> L;
+	  }
+
 	  cout << "Create adspImage Object.." << endl;
 	  
 	  adspImage blue(origImage.getBlueVector());
@@ -26,13 +39,13 @@ int main() {
 	  adspImage red(origImage.getRedVector());
 	  cout << "Calculate SMQT.." << endl;
 
-	  vector<unsigned int> redPixelPositions(red.getPixelValues().size());
-	  iota(begin(redPixelPositions), end(redPixelPositions), 0);
-	  vector<unsigned int> greenPixelPositions(green.getPixelValues().size());
-	  iota(begin(greenPixelPositions), end(greenPixelPositions), 0);
 	  vector<unsigned int> bluePixelPositions(blue.getPixelValues().size());
 	  iota(begin(bluePixelPositions), end(bluePixelPositions), 0);
-
+	  vector<unsigned int> greenPixelPositions(green.getPixelValues().size());
+	  iota(begin(greenPixelPositions), end(greenPixelPositions), 0);
+	  vector<unsigned int> redPixelPositions(red.getPixelValues().size());
+	  iota(begin(redPixelPositions), end(redPixelPositions), 0);
+	  
 	  blue.calculateSMQT(bluePixelPositions, L);
 	  green.calculateSMQT(greenPixelPositions, L);
 	  red.calculateSMQT(redPixelPositions, L);
@@ -54,7 +67,6 @@ int main() {
 	  getline(cin, newFile);
 	  imwrite(newFile+".png", finImage);*/
      
-	  imwrite("5.png", finImage);
 	  waitKey(0);
 	  return 0;
 }
