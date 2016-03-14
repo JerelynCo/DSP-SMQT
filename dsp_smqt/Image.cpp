@@ -2,15 +2,19 @@
 
 Image::Image(string fn)
 {
+	
   // Loading of image
-  mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
+  //mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
+  do
+  { 
+	cout << "Please input correct filename:" << endl;
+	getline(cin, fn);
+	mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
+  }while (mmImg.empty());
+
   rowSize = mmImg.rows;
   colSize = mmImg.cols;
   cv::Mat twoDblue(mmImg.rows, mmImg.cols, CV_64F);
-  if (mmImg.empty())
-  {
-    cout << "Image not loaded. Make sure correct filename and/or directory entered." << endl;
-  }
 
   Vec3f vIntensity; // Temporary vector to hold three pixels intensities
 

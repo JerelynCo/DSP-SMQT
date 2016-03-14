@@ -6,9 +6,12 @@
 #endif
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
 using namespace cv;
+
+
 
 class Image
 {
