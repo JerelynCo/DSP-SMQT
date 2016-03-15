@@ -12,30 +12,18 @@ int main() {
 	  string save = "no";
 	  vector<adspImage> colorChan;
 	  vector<Mat> BGR;
-	  //check for valid filename
-	  /*do
-	  {
-		  cout << "Please input correct filename:";
-		  getline(cin, filename);
-		  while (filename.length()<4)
-		  {
-			  cout << "Please input correct filename:";
-			  getline(cin, filename);
-		  }
-	  } while ((rgtFile != ".png"&& rgtFile !=".jpg"));*/
-	  //cout << "Please input correct filename:";
-	  //getline(cin, filename);
-	  
+	  //check for valid filename done inside image.cpp
+	  	  
 	  Image origImage(filename);
 	  Mat finImage(origImage.rowSize, origImage.colSize, CV_8UC1);
 	  cout << "Please enter the L:";
 	  cin >> L;
 	  while (cin.fail())
 	  {
-		std::cin.clear();
-		std::cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Please enter a number for L: ";
-		std::cin >> L;
+		cin.clear();
+		cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+		cout << "Please enter a number for L: ";
+		cin >> L;
 	  }
 
 	  cout << "Create adspImage Object.." << endl;
@@ -60,13 +48,38 @@ int main() {
 	  imshow("Orig", origImage.getImage());
 	  merge(BGR, finImage);
 	  imshow("new", finImage);
+	  //imwrite("new.png", finImage);
 	  
-	  /*cout << "new file name:";
+	  waitKey(0);
+	  destroyAllWindows();
+
+	  cout << "new file name:";
 	  cin.get();
 	  getline(cin, newFile);
-	  imwrite(newFile+".png", finImage);*/
-	  waitKey(0);
+
+	  if (newFile.substr(newFile.length() - 4)!=".png")
+	  {
+		  newFile = newFile+".png";
+	  }
+
+	  imwrite(newFile, finImage);
+	  
 	  return 0;
 }
 
-
+/*do
+{
+cout << "Please input correct filename:";
+getline(cin, filename);
+while (filename.length()<4)
+{
+cout << "Please input correct filename:";
+getline(cin, filename);
+}
+} while ((rgtFile != ".png"&& rgtFile !=".jpg"));*/
+//cout << "Please input correct filename:";
+//getline(cin, filename);
+/*cout << "new file name:";
+cin.get();
+getline(cin, newFile);
+imwrite(newFile+".png", finImage);*/

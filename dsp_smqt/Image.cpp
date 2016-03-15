@@ -4,10 +4,9 @@ Image::Image(string fn)
 {
 	
   // Loading of image
-  //mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
   do
   { 
-	cout << "Please input correct filename:" << endl;
+	cout << "Please input correct filename:";
 	getline(cin, fn);
 	mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
   }while (mmImg.empty());
