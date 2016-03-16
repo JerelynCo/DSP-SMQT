@@ -20,7 +20,7 @@ class adspImage
     adspImage(vector<double> pixelVals);
     ~adspImage();
 
-    void calculateSMQT(vector<unsigned int> v,int L);
+    void calculateSMQT(vector<unsigned int>& v,int L);
     vector<double> getPixelValues();
     void outputCSV();
     vector<double>getOutputValues(int L);

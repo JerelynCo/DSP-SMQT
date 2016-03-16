@@ -1,19 +1,20 @@
 #include "Image.h"
 
-Image::Image(string fn)
+Image::Image(string& fn)
 {
 	
   // Loading of image
-  do
+  mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
+  while (mmImg.empty())
   { 
 	cout << "Please input correct filename:";
 	getline(cin, fn);
 	mmImg = imread(fn, CV_LOAD_IMAGE_COLOR);
-  }while (mmImg.empty());
-
+  }
+  
   rowSize = mmImg.rows;
   colSize = mmImg.cols;
-  cv::Mat twoDblue(mmImg.rows, mmImg.cols, CV_64F);
+  //cv::Mat twoDblue(mmImg.rows, mmImg.cols, CV_64F);
 
   Vec3f vIntensity; // Temporary vector to hold three pixels intensities
 
@@ -30,6 +31,8 @@ Image::Image(string fn)
     }
   }
 }
+//deconstruct object
+Image::~Image(){}
 
 Mat Image::getImage()
 {

@@ -24,7 +24,8 @@ public:
   int rowSize = 0;
   int colSize = 0;
    
-  Image(string fn);
+  Image(string& fn);
+  ~Image();
   Mat getImage();
   
   vector<double> getBlueVector(), getGreenVector(), getRedVector(); // For pixel-level operation

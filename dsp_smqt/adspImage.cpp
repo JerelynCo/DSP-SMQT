@@ -32,7 +32,7 @@ int adspImage::addBit(unsigned int x, bool insertOne)
   }
 }
 
-void adspImage::calculateSMQT(vector<unsigned int> inputVectorPositions, int L) {
+void adspImage::calculateSMQT(vector<unsigned int>& inputVectorPositions, int L) {
   if (L == 0)
   {
     return;
