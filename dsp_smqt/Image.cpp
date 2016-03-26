@@ -31,14 +31,12 @@ Image::Image(string& fn)
     }
   }
 }
-//deconstruct object
-Image::~Image(){}
 
 Mat Image::getImage()
 {
   return mmImg;
 }
-
+//original values
 vector<double> Image::getBlueVector()
 {
   return mvBlue;
@@ -103,6 +101,7 @@ void Image::outputFilePixelValues(string outputFn){
   }
   file.close();
 }
+
 
 void Image::showImage(string windowName)
 {

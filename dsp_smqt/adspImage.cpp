@@ -99,3 +99,15 @@ void adspImage::padBit(int quanL){
 		}
 	}
 }
+
+void adspImage::getPicDiff(string filename, vector<double> outputVector)
+{
+	ofstream file;
+	file.open(filename);
+	for (int i = 0; i < outputVector.size(); i++)
+	{
+		file << outputVector.at(i) << "," << endl;
+	}
+	file.close();
+
+}

@@ -25,12 +25,11 @@ public:
   int colSize = 0;
    
   Image(string& fn);
-  ~Image();
   Mat getImage();
   
   vector<double> getBlueVector(), getGreenVector(), getRedVector(); // For pixel-level operation
   void outputFilePixelValues(string outputFn);
-
+  
   void showImage(string windowName);
   void writeToFile();
   Mat get2Dmat(String filename, vector<double> oneD);

@@ -25,6 +25,6 @@ class adspImage
     void outputCSV();
     vector<double>getOutputValues(int L);
 	void padBit(int quanL);
-	
+	void getPicDiff(string filename, vector<double> outputVector);
 };
 
