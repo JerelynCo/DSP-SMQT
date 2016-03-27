@@ -10,12 +10,13 @@ int main() {
 	  string filename = "";
 	  string newFile = "new";
 	  string save = "no";
-	  int loop = 0;
+	  string loop = "";
 	  vector<adspImage> colorChan;
 	  vector<Mat> BGR;
 	  do
 	  {
-		  cout << "enter filename:";
+		  loop = "";
+		  cout << "enter filename:"<<endl;
 		  getline(cin, filename);
 		  Image origImage(filename);
 		  
@@ -51,27 +52,31 @@ int main() {
 			  BGR.push_back(origImage.get2Dmat(filename, colorChanVal));
 			  vector<double> brightness(origValues.size());
 			  vector<double> contrast(origValues.size());
-			  //get brightness,bias, and contrast,gain, 
+			  //get brightness,bias, and contrast,gain, note: 0=blue, 1=green, 2=red
 			  for (int i = 0; i < origValues.size(); i++)
 			  {
 				  brightness.at(i) = colorChanVal.at(i) - origValues.at(i);
-				  contrast.at(i) = colorChanVal.at(i) / origValues.at(i);
+				  if (origValues.at(i) == 0)
+				  {
+					  contrast.at(i) = 0;
+				  }
+				  else
+				  {
+					  contrast.at(i) = colorChanVal.at(i) / origValues.at(i);
+				  }
 			  }
-			  colorChan[i].getPicDiff("brightness" + to_string(i) + ".csv", brightness);
-			  colorChan[i].getPicDiff("contrast" + to_string(i) + ".csv", contrast);
+			  colorChan[i].getPicDiff(filename+"brightness" + to_string(i) + ".csv", brightness);
+			  colorChan[i].getPicDiff(filename+"contrast" + to_string(i) + ".csv", contrast);
+
+			  brightness.clear();
+			  contrast.clear();
 		  }
 	  
 		  
 		  imshow("Orig", origImage.getImage());
 		  merge(BGR, finImage);
 		  imshow("new", finImage);
-		  //briggtens image
-		  /*Mat brghImg = finImage + Scalar(150, 150, 150);
-		  //imshow("Bright", brghImg);*/
-		  //contrast
-		  /*Mat conImg;
-		  finImage.convertTo(conImg, .2, .2, .2);
-		  imshow("Contrast", conImg);*/
+		  
 		  waitKey(0);
 		  destroyAllWindows();
 		  do
@@ -91,8 +96,8 @@ int main() {
 		  BGR.clear();
 
 		  cout << "save another file?enter 1:";
-		  cin >> loop;
-	  } while (loop == 1);
+		  getline(cin, loop);
+	  } while (loop.compare("1")==0);
 	  return 0;
 }
 
