@@ -53,7 +53,7 @@ int main() {
 			  vector<double> brightness(origValues.size());
 			  vector<double> contrast(origValues.size());
 			  //get brightness,bias, and contrast,gain, note: 0=blue, 1=green, 2=red
-			  for (int i = 0; i < origValues.size(); i++)
+			  /*for (int i = 0; i < origValues.size(); i++)
 			  {
 				  brightness.at(i) = colorChanVal.at(i) - origValues.at(i);
 				  if (origValues.at(i) == 0)
@@ -66,10 +66,10 @@ int main() {
 				  }
 			  }
 			  colorChan[i].getPicDiff(filename+"brightness" + to_string(i) + ".csv", brightness);
-			  colorChan[i].getPicDiff(filename+"contrast" + to_string(i) + ".csv", contrast);
+			  colorChan[i].getPicDiff(filename+	"contrast" + to_string(i) + ".csv", contrast);
 
 			  brightness.clear();
-			  contrast.clear();
+			  contrast.clear();*/
 		  }
 	  
 		  
