@@ -52,24 +52,6 @@ int main() {
 			  BGR.push_back(origImage.get2Dmat(filename, colorChanVal));
 			  vector<double> brightness(origValues.size());
 			  vector<double> contrast(origValues.size());
-			  //get brightness,bias, and contrast,gain, note: 0=blue, 1=green, 2=red
-			  /*for (int i = 0; i < origValues.size(); i++)
-			  {
-				  brightness.at(i) = colorChanVal.at(i) - origValues.at(i);
-				  if (origValues.at(i) == 0)
-				  {
-					  contrast.at(i) = 0;
-				  }
-				  else
-				  {
-					  contrast.at(i) = colorChanVal.at(i) / origValues.at(i);
-				  }
-			  }
-			  colorChan[i].getPicDiff(filename+"brightness" + to_string(i) + ".csv", brightness);
-			  colorChan[i].getPicDiff(filename+	"contrast" + to_string(i) + ".csv", contrast);
-
-			  brightness.clear();
-			  contrast.clear();*/
 		  }
 	  
 		  

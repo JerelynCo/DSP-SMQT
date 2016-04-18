@@ -52,7 +52,8 @@ vector<double> Image::getRedVector()
   return mvRed;
 }
 
-Mat Image::get2Dmat(String filename, vector<double> oneD){
+Mat Image::get2Dmat(String filename, vector<double> oneD)
+{
 	int counter = 0;
 	Mat image = imread(filename, CV_LOAD_IMAGE_COLOR);
 	cv::Mat twoD(image.rows, image.cols, CV_8UC1);
@@ -69,7 +70,8 @@ Mat Image::get2Dmat(String filename, vector<double> oneD){
 	return twoD;
 }
 
-void Image::outputFilePixelValues(string outputFn){
+void Image::outputFilePixelValues(string outputFn)
+{
   vector<double> vColorVector;
   ofstream file;
 
@@ -120,7 +122,8 @@ void Image::writeToFile()
   vCompression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
   vCompression_params.push_back(iCompression);
   bSuccess = imwrite("toptal_written.png", mmImg, vCompression_params);
-  if (!bSuccess){
+  if (!bSuccess)
+  {
     cout << "ERROR : Failed to write the image" << endl;
   }
 }

@@ -90,10 +90,13 @@ vector<double> adspImage::getOutputValues(int L)
   return out;
 }
 //for padding of 
-void adspImage::padBit(int quanL){
+void adspImage::padBit(int quanL)
+{
 	unsigned int padding,pad = 0;
-	for (int i = 0; i < outputValues.size(); i++){
-		for (int j = 0; j < 8-quanL; j++){
+	for (int i = 0; i < outputValues.size(); i++)
+	{
+		for (int j = 0; j < 8-quanL; j++)
+		{
 			//shift bits to the left add 0
 			outputValues.at(i) = addBit(outputValues.at(i),false);
 		}
